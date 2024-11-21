@@ -65,12 +65,17 @@ int costo_trans(char a, char b) {
 int FuerzaBrutaDistanciaMinima(string cadena1, string cadena2, int i, int j) {
     if (i == 0) {
         int costo = 0;
-        for (int k = 0; k < j; ++k) costo += costo_ins(cadena2[k]);
+        for (int k = 0; k < j; ++k){
+            costo += costo_ins(cadena2[k]);
+        }
+
         return costo;
     }
     if (j == 0) {
         int costo = 0;
-        for (int k = 0; k < i; ++k) costo += costo_del(cadena1[k]);
+        for (int k = 0; k < i; ++k) {
+            costo += costo_del(cadena1[k]);
+            }
         return costo;
     }
 
@@ -117,16 +122,25 @@ int main() {
 
         for (int i = 0; i < n; ++i) {
             archivo >> cadena1 >> cadena2;
+
+            if (cadena1 == "*") {
+                cadena1 = "";
+            }
+            if (cadena2 == "*") {
+                cadena2 = "";
+            }
+
             auto inicio = chrono::high_resolution_clock::now();
             int resultado = FuerzaBrutaDistanciaMinima(cadena1, cadena2, cadena1.size(), cadena2.size());
             auto fin = chrono::high_resolution_clock::now();
 
             chrono::duration<double> duracion = fin - inicio;
+
             cout << "S1: " << cadena1 << "\t" << "S2: " << cadena2 << endl;
             cout << "Distancia mínima de edición: " << resultado << endl;
             cout << "Tiempo de ejecución: " << duracion.count() << " segundos" << endl;
 
-            cout << "Memoria utilizada por la tabla de costos (aproximada): " << (26 * sizeof(int) * 3 + 26 * 26 * sizeof(int) * 2) / 1024.0 << " KB\n" << endl;
+            cout << "Memoria utilizada por la tabla de costos (aproximada): " << (26 * sizeof(int) * 2 + 26 * 26 * sizeof(int) * 2) / 1024.0 << " KB\n" << endl;
 
 
         }
@@ -139,6 +153,13 @@ int main() {
         cout << "Ingrese la segunda cadena: ";
         cin >> cadena2;
 
+        if (cadena1 == "*") {
+                cadena1 = "";
+        }
+        if (cadena2 == "*") {
+            cadena2 = "";
+        }
+
         auto inicio = chrono::high_resolution_clock::now();
         int resultado = FuerzaBrutaDistanciaMinima(cadena1, cadena2, cadena1.size(), cadena2.size());
         auto fin = chrono::high_resolution_clock::now();
@@ -147,7 +168,7 @@ int main() {
         cout << "Distancia mínima de edición: " << resultado << endl;
         cout << "Tiempo de ejecución: " << duracion.count() << " segundos" << endl;
 
-        cout << "Memoria utilizada por la tabla de costos (aproximada): " << (26 * sizeof(int) * 3 + 26 * 26 * sizeof(int) * 2) / 1024.0 << " KB" << endl;
+        cout << "Memoria utilizada por la tabla de costos (aproximada): " << (26 * sizeof(int) * 2 + 26 * 26 * sizeof(int) * 2) / 1024.0 << " KB" << endl;
     }
 
     return 0;

@@ -89,6 +89,7 @@ int ProgramacionDinamicaDistanciaMinima(const string &cadena1, const string &cad
     return dp[m][n];
 }
 
+
 int main() {
     cargarVector("cost_insert.txt", costo_insercion, 26);
     cargarVector("cost_delete.txt", costo_eliminacion, 26);
@@ -119,6 +120,13 @@ int main() {
         for (int i = 0; i < iteracion; ++i) {
             archivo >> cadena1 >> cadena2;
 
+            if (cadena1 == "*") {
+                cadena1 = "";
+            }
+            if (cadena2 == "*") {
+                cadena2 = "";
+            }
+
             m = cadena1.size();
             n = cadena2.size();
 
@@ -132,7 +140,7 @@ int main() {
             cout << "Distancia mínima de edición: " << resultado << endl;
             cout << "Tiempo de ejecución: " << duracion.count() * 1e9 << " nanosegundos" << endl;
 
-            cout << "Memoria utilizada por la tabla de DP (aproximada): " << (m * n * sizeof(int)) / 1024.0 << " KB\n" << endl;
+            cout << "Memoria utilizada por la tabla de DP (aproximada): " << ((m + 1) * (n + 1) * sizeof(int)) / 1024.0 << " KB\n" << endl;
         }
 
         archivo.close();
@@ -142,6 +150,13 @@ int main() {
         cin >> cadena1;
         cout << "Ingrese la segunda cadena: ";
         cin >> cadena2;
+
+        if (cadena1 == "*") {
+            cadena1 = "";
+        }
+        if (cadena2 == "*") {
+            cadena2 = "";
+        }
 
         auto inicio = chrono::high_resolution_clock::now();
         int resultado = ProgramacionDinamicaDistanciaMinima(cadena1, cadena2);
